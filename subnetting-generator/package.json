@@ -1,0 +1,22 @@
+{
+  "name": "subnetting-generator",
+  "version": "1.0.0",
+  "description": "A subneting generator that processes IP addresses and subnet masks.",
+  "authors": [
+    "Jojo252511"
+  ],
+  "main": "src/script.js",
+  "scripts": {
+    "start": "live-server src"
+  },
+  "keywords": [
+    "Subnetting",
+    "IP-Adresse",
+    "Subnetzmaske"
+  ],
+  "author": "Ihr Name",
+  "license": "MIT",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}

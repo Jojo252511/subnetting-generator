@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subnetting Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div>
+        <h1>Subnetting Generator</h1>
+        <form>
+            <div>
+                <label for="ipAddress">IP-Address:</label>
+                <input type="text" id="ipAddress" placeholder="z.B. 192.168.1.1">
+            </div>
+            <div>
+                <label for="subnetMask">Subnet mask:</label>
+                <input type="text" id="subnetMask" placeholder="z.B. /24">
+            </div>
+            <button id="generateButton" title="Generate" type="submit">Generate</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
