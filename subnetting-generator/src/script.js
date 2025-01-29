@@ -146,7 +146,10 @@ document.addEventListener('DOMContentLoaded', () =>
             const mask = maskInput.value;
             const result = calculateSubnet(ip, mask);
             if (!isValidIp(ip)) {
-                alert('Please enter a valid IP address.');
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML += `
+                   <p style="color: red;">Please enter a valid IP address.</p>
+                `;
                 return;
             }
             buttonIndex += 1;
@@ -170,7 +173,10 @@ document.addEventListener('DOMContentLoaded', () =>
             const ip = ipInput.value;
             const mask = maskInput.value;
             if (!isValidIp(ip)) {
-                alert('Please enter a valid IP address.');
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML += `
+                    <p style="color: red;">Please enter a valid IP address.</p>
+                `;
                 return;
             }
             let result = calculateSubnet(ip, mask);
