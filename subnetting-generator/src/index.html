@@ -16,7 +16,7 @@
             </div>
             <div class="input-div">
                 <label for="subnetMask">Subnet mask:</label>
-                <input type="text" id="subnetMask" placeholder="z.B. /24">
+                <input type="text" id="subnetMask" placeholder="z.B. 255.255.255.0 oder /24" pattern="^(\/([0-9]|[1-2][0-9]|3[0-2])|((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))$" required>
             </div>
             <button id="generateButton" title="Generate" type="submit">Generate</button><br>
             <button id="generateAllButton" title="Generate all" type="submit">Generate all (max. 16)</button>
