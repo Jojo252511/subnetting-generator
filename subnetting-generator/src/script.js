@@ -7,7 +7,6 @@
 */
 
 function calculateSubnet(ip, subnetMask) {
-    // disassemble the IP address and subnet mask into parts
     const ipParts = ip.split('.').map(Number);
     const maskParts = subnetMask.includes('/') ? 
         Array(4).fill(0).map((_, i) => {
@@ -16,16 +15,13 @@ function calculateSubnet(ip, subnetMask) {
         }) : 
         subnetMask.split('.').map(Number);
 
-    // calculate network deals
     const networkParts = ipParts.map((part, index) => part & maskParts[index]);
     const subnet = networkParts.join('.');
 
-    // Calculate Broadcast address
     const invertedMaskParts = maskParts.map(part => 255 - part);
     const broadcastParts = networkParts.map((part, index) => part | invertedMaskParts[index]);
     const broadcast = broadcastParts.join('.');
 
-    // calculate the first and last IP address in the subnet
     const firstIpParts = [...networkParts];
     firstIpParts[3] += 1;
     const firstIp = firstIpParts.join('.');
@@ -34,7 +30,6 @@ function calculateSubnet(ip, subnetMask) {
     lastIpParts[3] -= 1;
     const lastIp = lastIpParts.join('.');
 
-    // return results
     return {
         subnet: subnet,
         mask: maskParts.join('.'),
@@ -43,6 +38,70 @@ function calculateSubnet(ip, subnetMask) {
         lastIp: lastIp,
         broadcast: broadcast
     };
+}
+
+var buttonIndex = 0;
+
+/**
+ * Calculate more subnets
+ * @param {String} subnet 
+ * @param {String} cidr 
+ * @returns 
+ */
+function moreSubnets(subnet, cidr) {
+    const subnetParts = subnet.split('.').map(Number);
+    const subnetSize = Math.pow(2, 32 - parseInt(cidr.split('/')[1]));
+
+    let subnetInt = (subnetParts[0] << 24) | (subnetParts[1] << 16) | (subnetParts[2] << 8) | subnetParts[3];
+    subnetInt += subnetSize;
+
+    const nextSubnetParts = [
+        (subnetInt >> 24) & 255,
+        (subnetInt >> 16) & 255,
+        (subnetInt >> 8) & 255,
+        subnetInt & 255
+    ];
+
+    const nextSubnet = nextSubnetParts.join('.');
+    const result = calculateSubnet(nextSubnet, cidr);
+
+    const buttonID_element = "button_" + buttonIndex;
+    const button = document.getElementById(buttonID_element);
+    if (button)
+    {
+        button.style.display = 'none';
+    }
+   setResults(result);
+}
+
+/**
+ * set results to the result div
+ * @param {Object} result 
+ * @returns 
+ */
+function setResults(result) {
+    const resultDiv = document.getElementById('result');
+
+    if (result.subnet === "0.0.0.0") {
+        console.log('No more Subnets available');
+        resultDiv.innerHTML += `
+            <p>No more Subnets available</p>
+        `;
+        return;
+    }
+
+    buttonIndex += 1;
+    var buttonID = "button_" + buttonIndex;
+    resultDiv.innerHTML += `
+    <p>Netzadresse: ${result.subnet}</p>
+    <p>Maske: ${result.mask}</p>
+    <p>CIDR: ${result.cidr}</p>
+    <p>Erste IP: ${result.firstIp}</p>
+    <p>Letzte IP: ${result.lastIp}</p>
+    <p>Broadcast: ${result.broadcast}</p>
+    <hr>
+    <button onclick="moreSubnets('${result.subnet}', '${result.cidr}')" id=${buttonID}>Calculate more subnets</button>
+`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -56,7 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const ip = ipInput.value;
         const mask = maskInput.value;
         const result = calculateSubnet(ip, mask);
-        // German output
+        buttonIndex += 1;
+        var buttonID = "button_" + buttonIndex;
         resultDiv.innerHTML = `
             <p>Netzadresse: ${result.subnet}</p>
             <p>Maske: ${result.mask}</p>
@@ -64,6 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>Erste IP: ${result.firstIp}</p>
             <p>Letzte IP: ${result.lastIp}</p>
             <p>Broadcast: ${result.broadcast}</p>
+            <hr>
+            <button onclick="moreSubnets('${result.subnet}', '${result.cidr}')" id=${buttonID}>Calculate more subnets</button>
         `;
     });
 });
