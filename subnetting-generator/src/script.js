@@ -128,6 +128,11 @@ function setResults(result, print = true)
     }
 }
 
+function isValidIp(ip) {
+    const regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    return regex.test(ip);
+}
+
 document.addEventListener('DOMContentLoaded', () => 
 {
     const ipInput = document.getElementById('ipAddress');
@@ -140,6 +145,10 @@ document.addEventListener('DOMContentLoaded', () =>
             const ip = ipInput.value;
             const mask = maskInput.value;
             const result = calculateSubnet(ip, mask);
+            if (!isValidIp(ip)) {
+                alert('Please enter a valid IP address.');
+                return;
+            }
             buttonIndex += 1;
             var buttonID = "button_" + buttonIndex;
             resultDiv.innerHTML = `
@@ -160,6 +169,10 @@ document.addEventListener('DOMContentLoaded', () =>
             event.preventDefault();
             const ip = ipInput.value;
             const mask = maskInput.value;
+            if (!isValidIp(ip)) {
+                alert('Please enter a valid IP address.');
+                return;
+            }
             let result = calculateSubnet(ip, mask);
             resultDiv.innerHTML = '';
             let count = 0;
