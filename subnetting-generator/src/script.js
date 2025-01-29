@@ -1,3 +1,11 @@
+/**
+ * Author:  Jojo252511
+ * 
+ * @param {String} ip 
+ * @param {String} subnetMask 
+ * @returns 
+*/
+
 function calculateSubnet(ip, subnetMask) {
     // disassemble the IP address and subnet mask into parts
     const ipParts = ip.split('.').map(Number);
