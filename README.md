@@ -16,6 +16,8 @@ This project is a subnetting generator that enables users to enter an IP address
 3. Enter the desired IP address and subnet mask.
 4. Click the calculation button to display the subnets.
 
+Look at that too:[Subnetting-API](https://github.com/Jojo252511/subnetting-generator-api)
+
 ## License
 
 This project is licensed under the MIT-Lizenz.
