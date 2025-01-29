@@ -128,9 +128,24 @@ function setResults(result, print = true)
     }
 }
 
-function isValidIp(ip) {
+function isValidIp(ip) 
+{
     const regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
     return regex.test(ip);
+}
+
+function isValidSubnetMask(mask) 
+{
+    const regex = /^(\/([0-9]|[1-2][0-9]|3[0-2])|((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))$/;
+    return regex.test(mask);
+}
+
+function showErrorMessage(message) 
+{
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML += `
+        <p style="color: red;">${message}</p>
+    `;
 }
 
 document.addEventListener('DOMContentLoaded', () => 
@@ -145,11 +160,14 @@ document.addEventListener('DOMContentLoaded', () =>
             const ip = ipInput.value;
             const mask = maskInput.value;
             const result = calculateSubnet(ip, mask);
-            if (!isValidIp(ip)) {
-                const resultDiv = document.getElementById('result');
-                resultDiv.innerHTML += `
-                   <p style="color: red;">Please enter a valid IP address.</p>
-                `;
+            if (!isValidIp(ip)) 
+            {
+                showErrorMessage('Please enter a valid IP address.');
+                return;
+            }
+            if (!isValidSubnetMask(mask)) 
+            {
+                showErrorMessage('Please enter a valid Subnet mask.');
                 return;
             }
             buttonIndex += 1;
@@ -172,11 +190,14 @@ document.addEventListener('DOMContentLoaded', () =>
             event.preventDefault();
             const ip = ipInput.value;
             const mask = maskInput.value;
-            if (!isValidIp(ip)) {
-                const resultDiv = document.getElementById('result');
-                resultDiv.innerHTML += `
-                    <p style="color: red;">Please enter a valid IP address.</p>
-                `;
+            if (!isValidIp(ip)) 
+            {
+                showErrorMessage('Please enter a valid IP address.');
+                return;
+            }
+            if (!isValidSubnetMask(mask)) 
+            {
+                showErrorMessage('Please enter a valid Subnet mask.');
                 return;
             }
             let result = calculateSubnet(ip, mask);
