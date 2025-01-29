@@ -1,6 +1,6 @@
 # Subnetting Generator
 
-This project is a subneting generator that enables users to enter an IP address and a subnet mask to calculate subnets.The generator supports both the input in IP format and in CIDR format (e.g. /24).
+This project is a subnetting generator that enables users to enter an IP address and a subnet mask to calculate subnets.The generator supports both the input in IP format and in CIDR format (e.g. /24).
 
 ## Files
 
