@@ -5,7 +5,8 @@
  * @param {String} subnetMask 
  * @returns 
 */
-function calculateSubnet(ip, subnetMask) {
+function calculateSubnet(ip, subnetMask) 
+{
     const ipParts = ip.split('.').map(Number);
     const maskParts = subnetMask.includes('/') ? 
         Array(4).fill(0).map((_, i) => {
@@ -47,14 +48,16 @@ var buttonIndex = 0;
  * @param {String} cidr 
  * @returns {Object} result
  */
-function moreSubnets(subnet, cidr, print = true) {
+function moreSubnets(subnet, cidr, print = true) 
+{
     const subnetParts = subnet.split('.').map(Number);
     const subnetSize = Math.pow(2, 32 - parseInt(cidr.split('/')[1]));
 
     let subnetInt = (subnetParts[0] << 24) | (subnetParts[1] << 16) | (subnetParts[2] << 8) | subnetParts[3];
     subnetInt += subnetSize;
 
-    const nextSubnetParts = [
+    const nextSubnetParts = 
+    [
         (subnetInt >> 24) & 255,
         (subnetInt >> 16) & 255,
         (subnetInt >> 8) & 255,
@@ -64,7 +67,8 @@ function moreSubnets(subnet, cidr, print = true) {
     const nextSubnet = nextSubnetParts.join('.');
     const result = calculateSubnet(nextSubnet, cidr);
 
-    if (print) {
+    if (print) 
+    {
         const buttonID_element = "button_" + buttonIndex;
         const button = document.getElementById(buttonID_element);
         if (button)
@@ -82,7 +86,8 @@ function moreSubnets(subnet, cidr, print = true) {
  * @param {Object} result 
  * @returns 
  */
-function setResults(result, print = true) {
+function setResults(result, print = true) 
+{
     const resultDiv = document.getElementById('result');
 
     if (result.subnet === "0.0.0.0") {
@@ -95,7 +100,8 @@ function setResults(result, print = true) {
 
     buttonIndex += 1;
     var buttonID = "button_" + buttonIndex;
-    if (print) {
+    if (print) 
+    {
         resultDiv.innerHTML += `
             <p>Netzadresse: ${result.subnet}</p>
             <p>Maske: ${result.mask}</p>
@@ -106,7 +112,10 @@ function setResults(result, print = true) {
             <hr>
             <button onclick="moreSubnets('${result.subnet}', '${result.cidr}')" id=${buttonID}>Calculate more subnets</button>
         `;
-    } else {
+    } 
+    
+    else 
+    {
         resultDiv.innerHTML += `
             <p>Netzadresse: ${result.subnet}</p>
             <p>Maske: ${result.mask}</p>
@@ -119,50 +128,58 @@ function setResults(result, print = true) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form');
+document.addEventListener('DOMContentLoaded', () => 
+{
     const ipInput = document.getElementById('ipAddress');
     const maskInput = document.getElementById('subnetMask');
     const resultDiv = document.getElementById('result');
 
-    document.getElementById('generateButton').addEventListener('click', (event) => {
-        event.preventDefault();
-        const ip = ipInput.value;
-        const mask = maskInput.value;
-        const result = calculateSubnet(ip, mask);
-        buttonIndex += 1;
-        var buttonID = "button_" + buttonIndex;
-        resultDiv.innerHTML = `
-            <p>Netzadresse: ${result.subnet}</p>
-            <p>Maske: ${result.mask}</p>
-            <p>CIDR: ${result.cidr}</p>
-            <p>Erste IP: ${result.firstIp}</p>
-            <p>Letzte IP: ${result.lastIp}</p>
-            <p>Broadcast: ${result.broadcast}</p>
-            <hr>
-            <button onclick="moreSubnets('${result.subnet}', '${result.cidr}')" id=${buttonID}>Calculate more subnets</button>
-        `;
-    });
+    document.getElementById('generateButton').addEventListener('click', (event) => 
+        {
+            event.preventDefault();
+            const ip = ipInput.value;
+            const mask = maskInput.value;
+            const result = calculateSubnet(ip, mask);
+            buttonIndex += 1;
+            var buttonID = "button_" + buttonIndex;
+            resultDiv.innerHTML = `
+                <p>Netzadresse: ${result.subnet}</p>
+                <p>Maske: ${result.mask}</p>
+                <p>CIDR: ${result.cidr}</p>
+                <p>Erste IP: ${result.firstIp}</p>
+                <p>Letzte IP: ${result.lastIp}</p>
+                <p>Broadcast: ${result.broadcast}</p>
+                <hr>
+                <button onclick="moreSubnets('${result.subnet}', '${result.cidr}')" id=${buttonID}>Calculate more subnets</button>
+            `;
+        }
+    );
 
-    document.getElementById('generateAllButton').addEventListener('click', (event) => {
-        event.preventDefault();
-        const ip = ipInput.value;
-        const mask = maskInput.value;
-        let result = calculateSubnet(ip, mask);
-        resultDiv.innerHTML = '';
-        let count = 0;
-        while (result.subnet !== "0.0.0.0" && count < 15) {
-            setResults(result, false);
-            result = moreSubnets(result.subnet, result.cidr, false);
-            count++;
-        }
-        if (result.subnet !== "0.0.0.0") {
-            setResults(result);
-            result = moreSubnets(result.subnet, result.cidr);
-        }
+    document.getElementById('generateAllButton').addEventListener('click', (event) => 
+        {
+            event.preventDefault();
+            const ip = ipInput.value;
+            const mask = maskInput.value;
+            let result = calculateSubnet(ip, mask);
+            resultDiv.innerHTML = '';
+            let count = 0;
+            while (result.subnet !== "0.0.0.0" && count < 15) 
+            {
+                setResults(result, false);
+                result = moreSubnets(result.subnet, result.cidr, false);
+                count++;
+            }
 
-        if (result.subnet === "0.0.0.0") {
-            setResults(result);
+            if (result.subnet !== "0.0.0.0") 
+            {
+                setResults(result);
+                result = moreSubnets(result.subnet, result.cidr);
+            }
+
+            if (result.subnet === "0.0.0.0") 
+            {
+                setResults(result);
+            }
         }
-    });
+    );
 });
