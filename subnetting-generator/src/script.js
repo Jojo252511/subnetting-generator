@@ -128,18 +128,32 @@ function setResults(result, print = true)
     }
 }
 
+/**
+ * check if the ip is valid
+ * @param {String} ip 
+ * @returns 
+ */
 function isValidIp(ip) 
 {
     const regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
     return regex.test(ip);
 }
 
+/**
+ * check if the subnet mask is valid
+ * @param {String} mask 
+ * @returns 
+ */
 function isValidSubnetMask(mask) 
 {
     const regex = /^(\/([0-9]|[1-2][0-9]|3[0-2])|((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))$/;
     return regex.test(mask);
 }
 
+/**
+ * show error message
+ * @param {String} message 
+ */
 function showErrorMessage(message) 
 {
     const resultDiv = document.getElementById('result');
