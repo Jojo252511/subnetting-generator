@@ -6,7 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 h1 {
@@ -27,6 +27,11 @@ h1 {
 form {
     display: flex;
     flex-direction: column;
+    width: 100%;
+}
+
+.input-div {
+    width: calc(100% - 30px);
 }
 
 input[type="text"] {
