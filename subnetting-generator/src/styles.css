@@ -1,6 +1,22 @@
-body {
+:root 
+{
+    --primary-color: #007bff;
+    --primary-color-hover: #0056b3;
+    --background-color: #f0f2f5;
+    --text-color: #333;
+    --container-background: #fff;
+    --border-color: #ddd;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --input-padding: 15px;
+    --button-padding: 15px;
+    --font-size: 16px;
+}
+
+body 
+{
     font-family: 'Roboto', sans-serif;
-    background-color: #f0f2f5;
+    background-color: var(--background-color);
     margin: 0;
     padding: 20px;
     display: flex;
@@ -9,8 +25,9 @@ body {
     min-height: 100vh;
 }
 
-h1 {
-    color: #333;
+h1 
+{
+    color: var(--text-color);
     text-align: center;
     margin-bottom: 20px;
 }
@@ -18,55 +35,67 @@ h1 {
 .container {
     max-width: 600px;
     width: 100%;
-    background: #fff;
+    background: var(--container-background);
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
 }
 
-form {
+form 
+{
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.input-div {
+.input-div 
+{
     width: calc(100% - 30px);
 }
 
-input[type="text"] {
+input[type="text"] 
+{
     width: 100%;
-    padding: 15px;
+    padding: var(--input-padding);
     margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size);
 }
 
-button {
-    background-color: #007bff;
+button 
+{
+    background-color: var(--primary-color);
     color: white;
-    padding: 15px;
+    padding: var(--button-padding);
     border: none;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     cursor: pointer;
-    font-size: 16px;
+    font-size: var(--font-size);
     transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #0056b3;
+button:hover 
+{
+    background-color: var(--primary-color-hover);
 }
 
-#result {
+#result 
+{
     margin-top: 20px;
     padding: 20px;
     background: #f9f9f9;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-#result p {
+#result p 
+{
     margin: 10px 0;
-    font-size: 16px;
+    font-size: var(--font-size);
+}
+
+#result button 
+{
+    width: 100%;
 }
